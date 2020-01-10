@@ -36,5 +36,6 @@ urlpatterns = [
     path('recipes/<int:id>/', RecipeDetailView.as_view()),
     path(r'recipes/', RecipeListView.as_view()),
     path(r'register/', RegisterView.as_view()),
-    path(r'login/', LoginView.as_view())
+    path(r'login/', LoginView.as_view()),
+    path('admin/', admin.site.urls),
 ]

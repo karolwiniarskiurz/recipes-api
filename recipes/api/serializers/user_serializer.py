@@ -10,7 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserCreateSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, max_length=64)
-    email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True, min_length=8, max_length=128)
 
     class Meta:
