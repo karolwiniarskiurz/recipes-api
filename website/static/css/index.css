@@ -6,6 +6,7 @@ header {
     min-height: 400px;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .index__logo {
