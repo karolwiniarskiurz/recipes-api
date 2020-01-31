@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet"
+        href="{% static '/css/index.css' %}">
+  <div class="row search justify-content-center align-items-center" style="background: url('{% static 'img/salad.jpg' %}')">
+    <div class="col-12 col-md-10 col-xl-8 text-center ">
+      <h1 class="index__logo logo pb-1">Przepisy.pl</h1>
+      <form action="/search/" method="get">
+        <div class="form-group-lg d-flex">
+          <input class="form-control form-control-lg" type="text" placeholder="Szukaj" aria-label="Szukaj" name="query" required>
+          <button type="submit" class="btn-lg btn-dark">Szukaj</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row justify-content-center pt-4">
+    <div class="col-12 col-md-8 text-center">
+      <h2>Może Ci się spodobać</h2>
+    </div>
+  </div>
+  <div class="row justify-content-center pt-4">
+    {% for recipe in last_recipes %}
+      <a href="recipe/{{ recipe.id }}" class="col-12 col-xl-4 recipe-tile">
+        <img src="{{ recipe.main_image }}">
+        <b>{{ recipe.name }}</b>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

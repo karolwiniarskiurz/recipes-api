@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load difficulty_level %}
+{% block content %}
+  <link rel="stylesheet"
+        href="{% static '/css/detail.css' %}">
+  <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+  <script src="{% static 'js/detail.js' %}"></script>
+  <script src="{% static 'js/lightbox.js' %}"></script>
+  <div class="row">
+    <div class="detail__heading col-12 d-flex justify-content-center align-items-center" style="background-image: url('{{ recipe.main_image }}')">
+      <h2 class="d-inline">{{ recipe.name }}</h2>
+    </div>
+  </div>
+  <div class="row justify-content-center pb-3">
+    <div class="col-12 col-md-8">
+      <div class="row pt-2 pb-2 line-bottom justify-content-between text-center">
+        <div class="col-12 col-md-4">
+          Czas: {{ recipe.time_to_make }}.
+        </div>
+        <div class="col-12 col-md-4">
+          Trudność: {{ recipe.level | difficulty_level }}.
+        </div>
+        <div class="col-12 col-md-4">
+          Utworzone: {{ recipe.create_date | date:"SHORT_DATE_FORMAT" }}.
+        </div>
+      </div>
+      <div class="row pt-2 pb-2">
+        <div class="col-12 col-xl-6">
+          {{ recipe.description }}
+        </div>
+        <div class="col-12 col-xl-6">
+          <ol>
+            {% for step in steps %}
+              <li>{{ step.text }}</li>
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 gallery">
+          {% for photo in photos %}
+            <a href="{{ photo.link }}">
+              <img class="gallery__icon" src="{{ photo.link }}">
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

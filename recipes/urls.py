@@ -17,25 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from recipes.api.views.login_view import LoginView
-from recipes.api.views.user_view import UserViewSet
-from recipes.api.views.group_view import GroupViewSet
-from recipes.api.views.recipe_detail_view import RecipeDetailView
-from recipes.api.views.recipe_list_view import RecipeListView
-from recipes.api.views.register_view import RegisterView
-
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
-
-# todo: add admin
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('recipes/<int:id>/', RecipeDetailView.as_view()),
-    path(r'recipes/', RecipeListView.as_view()),
-    path(r'register/', RegisterView.as_view()),
-    path(r'login/', LoginView.as_view()),
+    path('', include('website.urls')),
+    path(r'api/', include('api.urls')),
     path('admin/', admin.site.urls),
 ]

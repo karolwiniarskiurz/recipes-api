@@ -1,0 +1,17 @@
+.detail__heading {
+    height: 300px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.detail__heading h2 {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 50px;
+}
+
+.gallery__icon {
+    max-height: 200px;
+    max-width: 200px;
+}

@@ -1,0 +1,22 @@
+header {
+    display: none;
+}
+
+.search {
+    min-height: 400px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.index__logo {
+    font-size: 4rem;
+}
+
+.recipe-tile {
+    max-height: 400px;
+    max-width: 400px;
+}
+
+.recipe-tile img {
+    width: 100%;
+}
