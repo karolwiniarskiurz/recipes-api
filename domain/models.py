@@ -18,10 +18,7 @@ class Recipe(models.Model):
     level = models.CharField(max_length=2, choices=LEVEL)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
-
-    def get_steps(self):
-        steps = RecipeStep.objects.filter(recipe=self)
-        return steps
+    steps = models.CharField(max_length=50000)
 
     def get_photos(self):
         photos = Photo.objects.filter(recipe=self)
@@ -33,9 +30,3 @@ class Photo(models.Model):
     link = models.CharField(max_length=1000)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
-
-class RecipeStep(models.Model):
-    id = models.AutoField(primary_key=True)
-    no = models.IntegerField()
-    text = models.CharField(max_length=1024)
-    recipe = models.ForeignKey(Recipe, models.CASCADE)

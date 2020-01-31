@@ -8,7 +8,6 @@ from api.helpers.is_authenticated import is_authenticated_headers
 from domain.models import Recipe
 from api.serializers.photo_serializer import PhotoCreateSerializer
 from api.serializers.recipe_serializer import RecipeSerializer, RecipeCreateSerializer
-from api.serializers.step_serializer import StepCreateSerializer
 
 
 class RecipeListView(APIView):
@@ -45,12 +44,6 @@ class RecipeListView(APIView):
             recipe_id = recipe.id
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
-
-        # adding steps
-        try:
-            add_related_data_to_recipe(req.data['steps'], StepCreateSerializer, recipe_id)
-        except Exception as e:
-            return Response(str(e), status.HTTP_400_BAD_REQUEST)
 
         # adding photos
         try:

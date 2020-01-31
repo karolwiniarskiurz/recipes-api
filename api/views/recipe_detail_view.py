@@ -7,10 +7,9 @@ from api.helpers.get_user_by_username import get_user_by_username_from_headers
 from api.helpers.is_authenticated import is_authenticated_headers
 from api.helpers.is_recipe_owner import is_recipe_owner
 from api.helpers.add_related_data_to_recipe import add_related_data_to_recipe
-from domain.models import RecipeStep, Photo
+from domain.models import Photo
 from api.serializers.photo_serializer import PhotoCreateSerializer
 from api.serializers.recipe_serializer import RecipeDetailSerializer, RecipeUpdateSerializer
-from api.serializers.step_serializer import StepCreateSerializer
 
 
 class RecipeDetailView(APIView):
@@ -37,13 +36,6 @@ class RecipeDetailView(APIView):
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
-        # updating steps
-        RecipeStep.objects.filter(recipe_id=recipe_id).delete()
-        try:
-            add_related_data_to_recipe(req.data['steps'], StepCreateSerializer, recipe_id)
-        except Exception as e:
-            return Response(str(e), status.HTTP_400_BAD_REQUEST)
-
         Photo.objects.filter(recipe_id=recipe_id).delete()
         try:
             add_related_data_to_recipe(req.data['photos'], PhotoCreateSerializer, recipe_id)
@@ -62,6 +54,5 @@ class RecipeDetailView(APIView):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         recipe.delete()
-        RecipeStep.objects.filter(recipe_id=id).delete()
         Photo.objects.filter(recipe_id=id).delete()
         return Response(status.HTTP_200_OK)

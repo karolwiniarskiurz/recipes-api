@@ -23,9 +23,16 @@
         href="{% static '/css/styles.css' %}">
 </head>
 <body>
+<div class="position-absolute auth-actions">
+  {% if user.is_authenticated %}
+    <a href="/logout/" class="btn btn-light">Wyloguj się</a>
+  {% else %}
+    <a href="/login/" class="btn btn-light">Zaloguj się</a>
+  {% endif %}
+</div>
 <header class="container-fluid">
   <div class="row align-items-center">
-    <div class="col-12 text-center">
+    <div class="col-12 text-md-center">
       <h1 class="logo">
         <a href="/">
           przepisy.pl
@@ -33,11 +40,13 @@
       </h1>
     </div>
   </div>
-
 </header>
 <main class="container-fluid">
   {% block content %}
   {% endblock %}
 </main>
+{% if user.is_authenticated %}
+  <a class="position-fixed add-button" href="/add/" style="background-image: url('{% static 'img/plus.png' %}')"></a>
+{% endif %}
 </body>
 </html>
