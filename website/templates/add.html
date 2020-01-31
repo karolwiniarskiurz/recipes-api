@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  {% load crispy_forms_tags %}
+  <div class="row justify-content-center align-items-center">
+    <div class="col-12 col-md-6 text-center">
+      <form method="post" action="/add/">
+        {{ form | crispy }}
+        <input type="submit" class="btn btn-primary" value="Dodaj przepis">
+      </form>
+    </div>
+  </div>
+{% endblock %}

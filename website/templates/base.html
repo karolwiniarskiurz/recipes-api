@@ -45,7 +45,7 @@
   {% block content %}
   {% endblock %}
 </main>
-{% if user.is_authenticated %}
+{% if user.is_authenticated and not hide_add %}
   <a class="position-fixed add-button" href="/add/" style="background-image: url('{% static 'img/plus.png' %}')"></a>
 {% endif %}
 </body>

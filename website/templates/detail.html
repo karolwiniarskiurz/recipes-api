@@ -30,17 +30,15 @@
           {{ recipe.description }}
         </div>
         <div class="col-12 col-xl-6">
-              {{ recipe.steps }}
+          {{ recipe.steps }}
         </div>
       </div>
-      <div class="row">
-        <div class="col-12 gallery">
-          {% for photo in photos %}
-            <a href="{{ photo.link }}">
-              <img class="gallery__icon" src="{{ photo.link }}">
-            </a>
-          {% endfor %}
-        </div>
+      <div class="gallery row">
+        {% for photo in photos %}
+          <a class="col-6 col-md-4" href="{{ photo.link }}">
+            <img class="gallery__icon" src="{{ photo.link }}">
+          </a>
+        {% endfor %}
       </div>
     </div>
   </div>

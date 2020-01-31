@@ -1,12 +1,14 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as logout_auth
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 from django.template import loader
 
 # Create your views here.
 from domain.models import Recipe, Photo
 from website.decorators import unauthenticated_only
-from website.forms import LoginForm, RegisterForm
+from website.forms import LoginForm, RegisterForm, RecipeForm
 
 
 def index(req):
@@ -44,6 +46,22 @@ def detail(req, id):
         'photos': photos
     }
     return HttpResponse(template.render(context, req))
+
+
+@login_required(redirect_field_name='/login')
+def add(req):
+    if req.method == 'POST':
+        form = RecipeForm(req.POST)
+        if form.is_valid():
+            recipe = form.save()
+            photo_link_str = form.cleaned_data['photos']
+            print(photo_link_str)
+            links = photo_link_str.split(',')
+            for photo in links:
+                Photo.objects.create(link=photo, recipe=recipe)
+            return HttpResponseRedirect(f'/recipe/{recipe.id}/')
+    form = RecipeForm()
+    return render(req, 'add.html', {'form': form, 'hide_add': True})
 
 
 @unauthenticated_only

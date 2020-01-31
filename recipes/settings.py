@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'domain',
-    'website'
+    'website',
+    'crispy_forms'
 
 ]
 
@@ -129,3 +130,5 @@ STATIC_URL = '/static/'
 import django_heroku
 
 django_heroku.settings(locals())
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
