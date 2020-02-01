@@ -51,7 +51,7 @@ def detail(req, id):
 @login_required(redirect_field_name='/login')
 def add(req):
     if req.method == 'POST':
-        form = RecipeForm(req.POST)
+        form = RecipeForm(req.POST, user=req.user)
         if form.is_valid():
             recipe = form.save()
             photo_link_str = form.cleaned_data['photos']
@@ -60,7 +60,7 @@ def add(req):
             for photo in links:
                 Photo.objects.create(link=photo, recipe=recipe)
             return HttpResponseRedirect(f'/recipe/{recipe.id}/')
-    form = RecipeForm()
+    form = RecipeForm(user=req.user)
     return render(req, 'add.html', {'form': form, 'hide_add': True})
 
 

@@ -35,3 +35,15 @@ class RecipeForm(forms.ModelForm):
             'time_to_make': 'Czas przygotowania',
             'level': 'Poziom trudności'
         }
+
+    def __init__(self, *args, **kwargs):
+        self._user = kwargs.pop('user')
+        super(RecipeForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        inst = super(RecipeForm, self).save(commit=False)
+        inst.user = self._user
+        if commit:
+            inst.save()
+            self.save_m2m()
+        return inst
